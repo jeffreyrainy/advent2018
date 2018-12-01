@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 def main():
-    file = open("input1.txt")
+    file = open("inputs/input1.txt")
     mylist = []
 
     for l in file:

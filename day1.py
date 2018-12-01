@@ -5,7 +5,7 @@ import numpy as np
 # note: input was search and replaced to remove plusses
 
 def main():
-    file = open("input1.txt")
+    file = open("inputs/input1.txt")
     mylist = []
 
     for l in file:
