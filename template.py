@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 def main():
-    pass
+    file = open("inputs/input.txt")
 
 if __name__ == "__main__":
     main()
