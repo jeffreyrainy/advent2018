@@ -25,15 +25,12 @@ def main():
         line = re.findall(r"[\w']+", line)
         [id, pos_x, pos_y, size_x, size_y] = [int(x) for x in line]
 
-        overlap = False
-
         # process each piece (we could use a data structure to speed this up, if we needed to)
         for x in range(size_x):
             for y in range(size_y):
                 if (x + pos_x, y + pos_y) in fabric:
                     fabric[(x + pos_x, y + pos_y)] += 1
                     ids[(x + pos_x, y + pos_y)].add(id)
-                    overlap = True
                     overlaps = overlaps.union(ids[(x + pos_x, y + pos_y)])
                 else:
                     fabric[(x + pos_x, y + pos_y)] = 1
