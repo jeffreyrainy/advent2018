@@ -1,8 +1,4 @@
-import queue
-import math
 import numpy as np
-import string
-import re
 
 def main():
     file = open("inputs/input4.txt")
@@ -18,15 +14,18 @@ def main():
         line = line.replace(']',' ')
         line = line.replace(':',' ')
         line = line.replace('#',' ')
-        line = re.findall(r"[\w']+", line)
+        line = line.split()
         when = int(line[0]) * 100000000 + int(line[1]) * 1000000 + int(line[2]) * 10000 + int(line[3]) * 100 + int(line[4])
+
         # check that we don't have multiple event at the same time
-        if when in entries:
-            assert(0)
+        assert(not when in entries)
+
+        # keep track of largest guard id plus one
         if line[5] == "Guard":
             guards = max(guards, int(line[6]) + 1)
         entries[when] = line[3:]
 
+    # we'll simply count how often each guard sleeps at each minute
     minutes_slept = np.zeros((guards, 60))
 
     awake = True
@@ -35,7 +34,7 @@ def main():
         hours, minutes, action = int(entries[k][0]), int(entries[k][1]), entries[k][2]
 
         if action == "Guard":
-            # check that previous guard ended day awake
+            # check that previous guard ended the day awake
             assert(awake)
             guard = int(entries[k][3])
 
@@ -49,7 +48,7 @@ def main():
             for t in range(sleep_time, wake_time):
                 minutes_slept[(guard, t)] += 1
 
-    # check that last guard ended day awake
+    # check that last guard ended the day awake
     assert(awake)
 
     sleepiest_guard = minutes_slept.sum(axis=1).argmax()
