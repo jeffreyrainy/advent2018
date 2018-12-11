@@ -17,23 +17,15 @@ def main():
     file = open("inputs/input11.txt")
 
     serial = int(file.readline())
-    print(serial)
-
     size = 300
-
-    values = np.zeros((size,size), dtype=int)
-
-    for x in range(size):
-        for y in range(size):
-            v = ((x + 10) * y + serial) * (x + 10)
-            values[(x,y)] = (v // 100) % 10 - 5
 
     # the sum from the (0,0) corner to a given position
     sum_corner = np.zeros((size,size), dtype=int)
 
     for x in range(size):
         for y in range(size):
-            sum_corner[(x,y)] = sum_corner[(x-1,y)] + sum_corner[(x,y - 1)] - sum_corner[(x - 1,y - 1)] + values[(x,y)]
+            v = ((((x + 10) * y + serial) * (x + 10)) // 100) % 10 - 5
+            sum_corner[(x,y)] = sum_corner[(x-1,y)] + sum_corner[(x,y - 1)] - sum_corner[(x - 1,y - 1)] + v
 
     process(sum_corner, [3,4], size)
     process(sum_corner, [0,size], size)
