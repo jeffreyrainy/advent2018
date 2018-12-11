@@ -3,59 +3,38 @@ import math
 import numpy as np
 from collections import deque
 
-left_marbles = deque()
-right_marbles = deque()
+marbles = deque()
 
 curr_pos = 0
-right_marbles.append(0)
-
-def balance():
-    if len(right_marbles) == 0:
-        for i in range((len(left_marbles) + 1) // 2):
-            right_marbles.append(left_marbles.popleft())
-    elif len(left_marbles) == 0:
-        for i in range((len(right_marbles) + 1) // 2):
-            left_marbles.appendleft(right_marbles.pop()) 
+marbles.append(0)
 
 def right(n):
     for i in range(n):
-        if len(right_marbles) == 0:
-            balance()
-        left_marbles.append(right_marbles.popleft())
+        marbles.append(marbles.popleft())
 
 def left(n):
     for i in range(n):
-        if len(left_marbles) == 0:
-            balance()
-        right_marbles.appendleft(left_marbles.pop())
+        marbles.appendleft(marbles.pop())
 
 def remove():
-
-    if len(right_marbles) == 0:
-        balance()
-    return right_marbles.popleft()
+    return marbles.popleft()
 
 def marble_string():
     ret = ""
-    l = len(left_marbles)
-    for i in range(l):
-        value = left_marbles.popleft()
-        ret += str(value) + " "
-        left_marbles.append(value)
 
-    l = len(right_marbles)
+    l = len(marbles)
     for i in range(l):
-        value = right_marbles.popleft()
+        value = marbles.popleft()
         if i == 0:
             ret += "(" + str(value) + ") "
         else:
             ret += str(value) + " "
-        right_marbles.append(value)
+        marbles.append(value)
 
     return ret
 
 def insert(value):
-    right_marbles.appendleft(value)
+    marbles.appendleft(value)
 
 def main():
     infile = open("inputs/input9.txt")
