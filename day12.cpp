@@ -1,13 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
-#include <vector>
+#include <deque>
 
 const int bitspervalue = 10;
 
-std::vector<int> code(std::string input)
+int transitions[32] = {0};
+
+std::deque<int> code(std::string input)
 {
-    std::vector<int> ret;
+    std::deque<int> ret;
     int v = 0;
 
     for (int i = 0; i < input.size(); i++)
@@ -25,10 +27,18 @@ std::vector<int> code(std::string input)
 }
 void addRule(std::string mask, int output)
 {
+    int v = 0;
+    for (int i = 0; i < 5; i++)
+    {
+        v = v * 2;
+        v = v + ((mask[i] == '#') ? 1 : 0);
+    }
+    transitions[v] = output;
 }
 
-void apply(std::vector<int>){
-
+void apply(std::deque<int> in)
+{
+    std::deque<int> out = std::deque<int>(in.size());
 };
 
 int main()
