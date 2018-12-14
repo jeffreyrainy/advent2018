@@ -55,7 +55,6 @@ def run(tape, rules):
     print(count)
 
 def main():
-    global do_trim
     file = open("inputs/input12.txt")
 
     tape = list(file.readline().split()[2])
