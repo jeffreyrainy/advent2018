@@ -1,14 +1,8 @@
-import numpy as np
-from collections import deque
-
 def main():
     file = open("inputs/input14.txt")
 
     value = file.readline().strip()
     length = len(value)
-
-    print(value)
-
     recipes = "37"
 
     elves = [0,1]
@@ -24,10 +18,5 @@ def main():
         if value in recipes[-length - 2:]:
             print(recipes.find(value))
             return
-
-        
-
-
-
 
 main()
