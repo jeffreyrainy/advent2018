@@ -47,13 +47,7 @@ def closest(array, players, letter):
                             closest[n][0] += 1
                             changed = True
 
-    print(closest)
-    exit(0)
-
-
-
-
-
+    return closest
 
 def prepare(array):
     players = {}
@@ -98,14 +92,27 @@ def main():
                     to_move.append((y,x))
 
         for pos in to_move:
-            closest(array, players, adv(array[pos]))
+            ret = closest(array, players, adv(array[pos]))
 
+            neigh = neighbours(array, pos)
 
-            neigh = neighbours()
+            dest = None
+            best = None
+
+            print(ret)
 
             for n in neigh:
                 if array[n] == adv(array[pos]):
-                    pass
+                    # we attack an adversary
+                    dest = None
+                    break
+                if ret[n] != 0 and (best == None or ret[n][0] < best):
+                    best = ret[n][0]
+                    best_pos = n
+
+            print("moving to {}".format(best_pos))
+
+            exit()
 
      
 
